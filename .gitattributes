@@ -1,3 +1,4 @@
+xcmake linguist-vendored
 CMakeLists.txt linguist-vendored
 src/* linguist-documentation
 
