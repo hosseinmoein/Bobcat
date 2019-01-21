@@ -12,7 +12,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 # - AddUninstallTarget (http://robotology.github.io/ycm/gh-pages/v0.8/module/AddUninstallTarget.html)
 # - AddInstallRPATHSupport (http://robotology.github.io/ycm/gh-pages/v0.8/module/AddInstallRPATHSupport.html)
 # See https://github.com/robotology/ycm/
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/xcmake)
 
 # Control where libraries and executables are placed during the build.
 # With the following settings executables are placed in <the top level of the
@@ -83,7 +83,7 @@ install(FILES "${${LIBRARY_TARGET_NAME}_HDR}"
 #
 # install_basic_package_files() comes with many input parameters to customize the configuration
 # files. The parameters used in the following call provide basic versions of CMake configuration
-# files.  See install_basic_package_files() documentation found in ./cmake folder.
+# files.  See install_basic_package_files() documentation found in ./xcmake folder.
 #
 # Note that if your library depends from other libraries, you are probably
 # required to used the install_basic_package_files() DEPENDENCIES option.

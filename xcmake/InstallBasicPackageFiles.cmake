@@ -66,7 +66,7 @@
 # Each file is generated twice, one for the build directory and one for
 # the installation directory.  The ``INSTALL_DESTINATION`` argument can be
 # passed to install the files in a location different from the default
-# one (``CMake`` on Windows, ``${CMAKE_INSTALL_LIBDIR}/cmake/${Name}``
+# one (``CMake`` on Windows, ``${CMAKE_INSTALL_LIBDIR}/xcmake/${Name}``
 # on other platforms.  The ``EXPORT_DESTINATION`` argument can be passed to
 # generate the files in the build tree in a location different from the default
 # one (``CMAKE_BINARY_DIR``).  If this is a relative path, it is considered
@@ -344,7 +344,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     if(WIN32 AND NOT CYGWIN)
       set(_IBPF_INSTALL_DESTINATION CMake)
     else()
-      set(_IBPF_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${_Name})
+      set(_IBPF_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/xcmake/${_Name})
     endif()
   endif()
 
