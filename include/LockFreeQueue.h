@@ -39,14 +39,12 @@ private:
 
         value_type  v { };
         Node        *np { nullptr };
+        int         cache_index = -1;
 
         inline Node () noexcept = default;
         inline Node (const value_type &value) noexcept : v (value)  {   }
-        inline Node (value_type &&value) noexcept
-            : v (std::move(value))  {   }
+        inline Node (value_type &&value) noexcept : v (std::move(value))  {   }
     };
-
-    using ReserveVec = std::vector<Node *>;
 
     inline Node *get_node_ (const value_type &v) noexcept;
     inline Node *get_node_ (value_type &&v) noexcept;
@@ -64,16 +62,16 @@ public:
     inline void push (const value_type &v) noexcept;
     inline void push (value_type &&v) noexcept;
 
-    inline const value_type &front () const; // throw (LFQEmpty);
-    inline value_type &front (); // throw (LFQEmpty);
+    inline const value_type &front () const; // throw (LFQEmpty)
+    inline value_type &front (); // throw (LFQEmpty)
 
     // NOTE: The following method returns the data by value.
     //       Therefore it is not as efficient as front().
     //       Use it only if you have to.
     //
-    inline value_type pop_front (); // throw (LFQEmpty);
+    inline value_type pop_front (); // throw (LFQEmpty)
 
-    inline void pop (); // throw (LFQEmpty);
+    inline void pop (); // throw (LFQEmpty)
 
     inline bool empty () const noexcept  { return (slider_ == head_); }
 
@@ -82,22 +80,22 @@ public:
     //
     // NOTE: This is not MT-safe
     //
-    inline size_type reserve_size () const noexcept  {
+    inline size_type
+	cache_size () const noexcept  { return (node_cache_.size ()); }
 
-        return (reserve_vec_.size ());
-    }
-
-    inline size_type new_count() const throw()  { return (new_count_); }
+    inline size_type new_count() const noexcept  { return (new_count_); }
 
     // NOTE: This is not MT-safe
     //
-    inline void free_reserve () noexcept;
+    inline void free_cache () noexcept;
 
 private:
 
+    using ReserveVec = std::vector<Node *>;
+
     // Accessed only by Producer and Destructor
     //
-    ReserveVec  reserve_vec_ { };
+    ReserveVec  node_cache_ { };
 
     Node        *head_ { nullptr };  // Modified only by Producer
     Node        *tail_ { nullptr };  // Modified only by Producer

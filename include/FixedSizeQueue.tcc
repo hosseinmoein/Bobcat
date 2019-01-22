@@ -16,12 +16,13 @@ push (const value_type &element, bool wait_if_full)  { // throw (FSQFull)
 
     std::unique_lock<std::mutex>    ul(mutex_);
 
-    if (current_size_ >= capacity_)
+    if (current_size_ >= capacity_)  {
         if (wait_if_full)
             while (current_size_ >= capacity_)
                 cvx_.wait (ul);
         else
             throw FSQFull ();
+    }
 
     queue_ [back_pointer_++] = element;
 
@@ -65,12 +66,13 @@ front (bool wait_on_front) const  { // throw (FSQEmpty)
 
     std::unique_lock<std::mutex>    ul(mutex_);
 
-    if (current_size_ == 0)
+    if (current_size_ == 0)  {
         if (wait_on_front)
             while (current_size_ == 0)
                 cvx_.wait (ul);
         else
             throw FSQEmpty ();
+    }
 
     return (queue_ [front_pointer_]);
 }
@@ -83,12 +85,13 @@ pop_front (value_type &value_out, bool wait_on_front)  { // throw (FSQEmpty)
 
     std::unique_lock<std::mutex>    ul(mutex_);
 
-    if (current_size_ == 0)
+    if (current_size_ == 0)  {
         if (wait_on_front)
             while (current_size_ == 0)
                 cvx_.wait (ul);
         else
             throw FSQEmpty ();
+    }
 
     value_out = queue_ [front_pointer_++];
 
@@ -111,12 +114,13 @@ front (bool wait_on_front)  { // throw (FSQEmpty)
 
     std::unique_lock<std::mutex>    ul(mutex_);
 
-    if (current_size_ == 0)
+    if (current_size_ == 0)  {
         if (wait_on_front)
             while (current_size_ == 0)
                 cvx_.wait (ul);
         else
             throw FSQEmpty ();
+    }
 
     return (queue_ [front_pointer_]);
 }

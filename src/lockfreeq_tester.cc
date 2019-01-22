@@ -106,7 +106,7 @@ int main (int argCnt, char *argVctr [])  {
 
     std::cout << "Total Elapsed Time: " << end - start
               << " seconds" << std::endl;
-    std::cout << "Q Reserve Count: " << Q.reserve_size () << std::endl;
+    std::cout << "Q Cache Count: " << Q.cache_size () << std::endl;
     std::cout << "New Count: " << Q.new_count () << std::endl;
     return (EXIT_SUCCESS);
 }

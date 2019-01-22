@@ -23,7 +23,7 @@ LockFreeQueue<T>::LockFreeQueue ()  {
 template<typename T>
 LockFreeQueue<T>::~LockFreeQueue ()  {
 
-    free_reserve ();
+    free_cache ();
     while (tail_)  {
         Node    *tmp = tail_;
 
@@ -115,13 +115,13 @@ inline void LockFreeQueue<T>::pop ()  { // throw (LFQEmpty)
 // ----------------------------------------------------------------------------
 
 template<typename T>
-inline void LockFreeQueue<T>::free_reserve () noexcept  {
+inline void LockFreeQueue<T>::free_cache () noexcept  {
 
-    for (typename ReserveVec::const_iterator citer = reserve_vec_.begin ();
-         citer != reserve_vec_.end (); ++citer)
+    for (typename ReserveVec::const_iterator citer = node_cache_.begin ();
+         citer != node_cache_.end (); ++citer)
         delete *citer;
 
-    reserve_vec_.clear ();
+    node_cache_.clear ();
 }
 
 // ----------------------------------------------------------------------------
@@ -130,12 +130,12 @@ template<typename T>
 inline typename LockFreeQueue<T>::Node *
 LockFreeQueue<T>::get_node_ (const value_type &v) noexcept  {
 
-    if (! reserve_vec_.empty ())  {
-        Node   *n = reserve_vec_.back ();
+    if (! node_cache_.empty ())  {
+        Node   *n = node_cache_.back ();
 
         n->v = v;
         n->np = nullptr;
-        reserve_vec_.pop_back ();
+        node_cache_.pop_back ();
         return (n);
     }
 
@@ -149,12 +149,12 @@ template<typename T>
 inline typename LockFreeQueue<T>::Node *
 LockFreeQueue<T>::get_node_ (value_type &&v) noexcept  {
 
-    if (! reserve_vec_.empty ())  {
-        Node   *n = reserve_vec_.back ();
+    if (! node_cache_.empty ())  {
+        Node   *n = node_cache_.back ();
 
         n->v = std::move(v);
         n->np = nullptr;
-        reserve_vec_.pop_back ();
+        node_cache_.pop_back ();
         return (n);
     }
 
@@ -167,7 +167,7 @@ LockFreeQueue<T>::get_node_ (value_type &&v) noexcept  {
 template<typename T>
 inline void LockFreeQueue<T>::release_node_ (Node *n) noexcept  {
 
-    reserve_vec_.push_back (n);
+    node_cache_.push_back (n);
 }
 
 } // namespace hmq

@@ -13,7 +13,7 @@ INCLUDES = -I/usr/include/c++/7 -I/usr/include
 LFLAGS =
 CXXFLAGS = -O3 -std=c++17 $(INCLUDES) $(DEFINES) 
 
-PLATFORM_LIBS = -lpthread -lrt -ldl -lm  -lstdc++
+PLATFORM_LIBS = -lpthread -ldl -lm  -lstdc++
 
 # -----------------------------------------------------------------------------
 

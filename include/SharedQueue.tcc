@@ -32,12 +32,13 @@ front (bool wait_on_front) const  { // throw (SQEmpty)
 
     std::unique_lock<std::mutex>    ul(mutex_);
 
-    if (queue_.empty ())
+    if (queue_.empty ())  {
         if (wait_on_front)
             while (queue_.empty ())
                 cvx_.wait (ul);
         else
             throw SQEmpty ();
+    }
 
     return (queue_.front ());
 }
@@ -51,12 +52,13 @@ pop_front (bool wait_on_front)  { // throw (SQEmpty)
 
     std::unique_lock<std::mutex>    ul(mutex_);
 
-    if (queue_.empty ())
+    if (queue_.empty ())  {
         if (wait_on_front)
             while (queue_.empty ())
                 cvx_.wait (ul);
         else
             throw SQEmpty ();
+    }
 
     const   value_type  value = queue_.front ();
 
@@ -72,12 +74,13 @@ SharedQueue<T>::front (bool wait_on_front)  { // throw (SQEmpty)
 
     std::unique_lock<std::mutex>    ul(mutex_);
 
-    if (queue_.empty ())
+    if (queue_.empty ())  {
         if (wait_on_front)
             while (queue_.empty ())
                 cvx_.wait (ul);
         else
             throw SQEmpty ();
+    }
 
     return (queue_.front ());
 }
