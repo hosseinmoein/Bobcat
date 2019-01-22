@@ -39,7 +39,6 @@ private:
 
         value_type  v { };
         Node        *np { nullptr };
-        int         cache_index = -1;
 
         inline Node () noexcept = default;
         inline Node (const value_type &value) noexcept : v (value)  {   }
