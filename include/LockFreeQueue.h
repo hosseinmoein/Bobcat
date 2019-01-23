@@ -5,7 +5,6 @@
 
 #pragma once
 
-#include <cstdlib>
 #include <vector>
 
 // ----------------------------------------------------------------------------
@@ -51,7 +50,8 @@ private:
 
 public:
 
-    LockFreeQueue ();
+    // Cache size of initial nodes to reserve
+    explicit LockFreeQueue (size_type cache_size = 512);
     LockFreeQueue (LockFreeQueue &&) = default;
     LockFreeQueue &operator = (LockFreeQueue &&) = default;
     LockFreeQueue (const LockFreeQueue &) = delete;
@@ -80,7 +80,7 @@ public:
     // NOTE: This is not MT-safe
     //
     inline size_type
-	cache_size () const noexcept  { return (node_cache_.size ()); }
+    cache_size () const noexcept  { return (node_cache_.size ()); }
 
     inline size_type new_count() const noexcept  { return (new_count_); }
 

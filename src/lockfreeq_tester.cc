@@ -14,8 +14,8 @@ using namespace hmq;
 
 // ----------------------------------------------------------------------------
 
-void *pusher ();
-void *popper ();
+void pusher ();
+void popper ();
 
 struct Dummy {
 
@@ -85,7 +85,9 @@ struct Dummy {
 };
 
 static  const   int         MAX_COUNT = 100000;
-// LockFreeQueue<int>    Q;
+
+int                   pushed = 0;
+int                   popped = 0;
 LockFreeQueue<Dummy>  Q;
 
 // ----------------------------------------------------------------------------
@@ -108,12 +110,14 @@ int main (int argCnt, char *argVctr [])  {
               << " seconds" << std::endl;
     std::cout << "Q Cache Count: " << Q.cache_size () << std::endl;
     std::cout << "New Count: " << Q.new_count () << std::endl;
+    std::cout << "Pushed: " << pushed << std::endl;
+    std::cout << "Popped: " << popped << std::endl;
     return (EXIT_SUCCESS);
 }
 
 // ----------------------------------------------------------------------------
 
-void *pusher ()  {
+void pusher ()  {
 
     char                        buffer [512];
     const   struct  ::timespec  rqt = { 0, 100000 };
@@ -123,17 +127,18 @@ void *pusher ()  {
         Q.push (Dummy ("This is a str", i, i + 10,  "This is a str 2"));
         sprintf (buffer, "Pushed %d\n", i);
         std::cout << buffer;
+        pushed += 1;
 
         // if (! (static_cast<int>(drand48 () * 100000.0) % 3))
         //     nanosleep (&rqt, nullptr);
     }
 
-    return (nullptr);
+    return;
 }
 
 // ----------------------------------------------------------------------------
 
-void *popper ()  {
+void popper ()  {
 
     char                        buffer [512];
     int                         i = 0;
@@ -149,6 +154,7 @@ void *popper ()  {
             i = d.i1;
             sprintf (buffer, "Popped %d\n", d.i1);
             std::cout << buffer;
+            popped += 1;
         }
         catch (const LFQEmpty &ex)  {
             if (i >= MAX_COUNT)
@@ -160,7 +166,7 @@ void *popper ()  {
         //     nanosleep (&rqt, nullptr);
     }
 
-    return (nullptr);
+    return;
 }
 
 // ----------------------------------------------------------------------------

@@ -4,6 +4,7 @@
 // Distributed under the BSD Software License (see file License)
 
 #include <LockFreeQueue.h>
+#include <atomic>
 
 // ----------------------------------------------------------------------------
 
@@ -11,11 +12,12 @@ namespace hmq
 {
 
 template<typename T>
-LockFreeQueue<T>::LockFreeQueue ()  {
+LockFreeQueue<T>::LockFreeQueue (size_type cache_size)  {
 
    // We need a dummy place-holder
    //
     head_ = tail_ = slider_ = get_node_ (value_type ());
+    node_cache_.reserve(cache_size);
 }
 
 // ----------------------------------------------------------------------------
@@ -40,6 +42,8 @@ inline void LockFreeQueue<T>::push (const value_type &v) noexcept  {
     head_->np = get_node_ (v);
     head_ = head_->np;
 
+    std::atomic_thread_fence(std::memory_order_acquire);
+
    // Now clean up the already consumed ones
    //
     while (tail_ != slider_)  { // slider_ only moves forward, so we are safe
@@ -56,6 +60,8 @@ inline void LockFreeQueue<T>::push (value_type &&v) noexcept  {
     head_->np = get_node_ (v);
     head_ = head_->np;
 
+    std::atomic_thread_fence(std::memory_order_acquire);
+
    // Now clean up the already consumed ones
    //
     while (tail_ != slider_)  { // slider_ only moves forward, so we are safe
@@ -70,8 +76,10 @@ template<typename T>
 inline const typename LockFreeQueue<T>::value_type &
 LockFreeQueue<T>::front () const  { // throw (LFQEmpty)
 
-    if (slider_ != head_) // head_ only moves forward, so we are safe
+    if (slider_ != head_)  { // head_ only moves forward, so we are safe
+        std::atomic_thread_fence(std::memory_order_release);
         return (slider_->np->v);
+    }
     throw LFQEmpty ();
 }
 
@@ -84,6 +92,7 @@ LockFreeQueue<T>::pop_front ()  { // throw (LFQEmpty)
     if (slider_ != head_)  { // head_ only moves forward, so we are safe
         const value_type    &v = slider_->np->v;
 
+        std::atomic_thread_fence(std::memory_order_release);
         slider_ = slider_->np;
         return (v);
     }
@@ -96,8 +105,10 @@ template<typename T>
 inline typename LockFreeQueue<T>::value_type &
 LockFreeQueue<T>::front ()  { // throw (LFQEmpty)
 
-    if (slider_ != head_) // head_ only moves forward, so we are safe
+    if (slider_ != head_)  { // head_ only moves forward, so we are safe
+        std::atomic_thread_fence(std::memory_order_release);
         return (slider_->np->v);
+    }
     throw LFQEmpty ();
 }
 
@@ -106,8 +117,10 @@ LockFreeQueue<T>::front ()  { // throw (LFQEmpty)
 template<typename T>
 inline void LockFreeQueue<T>::pop ()  { // throw (LFQEmpty)
 
-    if (slider_ != head_) // head_ only moves forward, so we are safe
+    if (slider_ != head_)  { // head_ only moves forward, so we are safe
+        std::atomic_thread_fence(std::memory_order_release);
         slider_ = slider_->np;
+    }
     else
         throw LFQEmpty ();
 }
