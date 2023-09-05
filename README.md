@@ -2,6 +2,8 @@
 [![C++17](https://img.shields.io/badge/C%2B%2B-17-blue.svg)](https://isocpp.org/std/the-standard )
 [![Build Status](https://travis-ci.org/hosseinmoein/Q.svg?branch=master)](https://travis-ci.org/hosseinmoein/Q)
 
+<img src="Bobcat.jpg" alt="Q Cat" width="400" longdesc="Q Cat"/>
+
 # Queue
 This repository includes 3 different multi-threaded queues:<BR>
 This is a header-only library
