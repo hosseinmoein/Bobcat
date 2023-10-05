@@ -125,7 +125,7 @@ void pusher ()  {
     for (int i = 1; i <= MAX_COUNT; ++i)  {
         // Q.push (i);
         Q.push (Dummy ("This is a str", i, i + 10,  "This is a str 2"));
-        sprintf (buffer, "Pushed %d\n", i);
+        snprintf (buffer, sizeof(buffer) - 1, "Pushed %d\n", i);
         std::cout << buffer;
         pushed += 1;
 
@@ -152,7 +152,7 @@ void popper ()  {
             const Dummy d = Q.pop_front ();
 
             i = d.i1;
-            sprintf (buffer, "Popped %d\n", d.i1);
+            snprintf (buffer, sizeof(buffer) - 1, "Popped %d\n", d.i1);
             std::cout << buffer;
             popped += 1;
         }
