@@ -6,7 +6,7 @@
 #include <iostream>
 #include <thread>
 
-#include <FixedSizeQueue.h>
+#include <Bobcat/FixedSizeQueue.h>
 
 using namespace hmq;
 
@@ -71,8 +71,9 @@ void *counter ()  {
         nanosleep (&rqt, NULL);
 #endif // WIN32
 
-        sprintf (buffer, "The number of current elements "
-                         "in the queue is: %d\n", Q.size ());
+        snprintf (buffer, sizeof(buffer) - 1,
+                  "The number of current elements "
+                  "in the queue is: %d\n", Q.size ());
         std::cout << buffer;
     }
 
@@ -94,7 +95,7 @@ void *pusher ()  {
 //            nanosleep (&rqt, NULL);
 //        }
         Q.push (index);
-        sprintf (buffer, "Pushed element %lu\n", index);
+        snprintf (buffer, sizeof(buffer) - 1, "Pushed element %lu\n", index);
         std::cout << buffer;
         index += 1;
     }
@@ -116,13 +117,14 @@ void *popper ()  {
             int i = 0;
 
             Q.pop_front (i);
-            sprintf (buffer, "Poped element (pop_front()) %d\n", i);
+            snprintf (buffer, sizeof(buffer) - 1,
+                      "Poped element (pop_front()) %d\n", i);
             std::cout << buffer;
         }
         else  {
             const   int i = Q.front ();
 
-            sprintf (buffer, "Poped element %d\n", i);
+            snprintf (buffer, sizeof(buffer) - 1, "Poped element %d\n", i);
             std::cout << buffer;
             Q.pop();
         }

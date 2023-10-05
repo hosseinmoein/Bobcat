@@ -99,7 +99,7 @@ private:
 // ----------------------------------------------------------------------------
 
 #  ifdef DMS_INCLUDE_SOURCE
-#    include <FixedSizeQueue.tcc>
+#    include <Bobcat/FixedSizeQueue.tcc>
 #  endif // DMS_INCLUDE_SOURCE
 
 // ----------------------------------------------------------------------------

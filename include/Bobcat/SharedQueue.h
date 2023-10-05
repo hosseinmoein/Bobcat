@@ -84,7 +84,7 @@ private:
 // ----------------------------------------------------------------------------
 
 #  ifdef DMS_INCLUDE_SOURCE
-#    include <SharedQueue.tcc>
+#    include <Bobcat/SharedQueue.tcc>
 #  endif // DMS_INCLUDE_SOURCE
 
 // ----------------------------------------------------------------------------

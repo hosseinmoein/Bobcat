@@ -6,7 +6,7 @@
 #include <iostream>
 #include <thread>
 
-#include <SharedQueue.h>
+#include <Bobcat/SharedQueue.h>
 
 using namespace hmq;
 
@@ -48,7 +48,7 @@ void *pusher ()  {
 
     for (int i = 1; i <= MAX_COUNT; ++i)  {
         Q.push (i);
-        sprintf (buffer, "Pushed %d\n", i);
+        snprintf (buffer, sizeof(buffer) - 1, "Pushed %d\n", i);
         std::cout << buffer;
 
         // if (! (static_cast<int>(drand48 () * 100000.0) % 3))
@@ -71,7 +71,7 @@ void *popper ()  {
             // i = Q.front ();
             // Q.pop ();
             i = Q.pop_front ();
-            sprintf (buffer, "Popped %d\n", i);
+            snprintf (buffer, sizeof(buffer) - 1, "Popped %d\n", i);
             std::cout << buffer;
             if (i >= MAX_COUNT)
                 break;

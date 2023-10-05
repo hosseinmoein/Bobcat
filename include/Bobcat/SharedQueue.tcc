@@ -3,7 +3,7 @@
 // Distributed under the BSD Software License (see file License)
 // October 22, 2009
 
-#include "../include/SharedQueue.h"
+#include <Bobcat/SharedQueue.h>
 
 // ----------------------------------------------------------------------------
 
