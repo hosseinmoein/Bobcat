@@ -8,7 +8,7 @@
 #include <string.h>
 #include <thread>
 
-#include <LockFreeQueue.h>
+#include <Bobcat/LockFreeQueue.h>
 
 using namespace hmq;
 

@@ -12,12 +12,12 @@ PROJECT_INCLUDE_DIR = ../../include
 # -----------------------------------------------------------------------------
 
 SRCS =
-HEADERS = $(LOCAL_INCLUDE_DIR)/SharedQueue.h \
-          $(LOCAL_INCLUDE_DIR)/SharedQueue.tcc \
-          $(LOCAL_INCLUDE_DIR)/LockFreeQueue.h \
-          $(LOCAL_INCLUDE_DIR)/LockFreeQueue.tcc \
-          $(LOCAL_INCLUDE_DIR)/FixedSizeQueue.h \
-          $(LOCAL_INCLUDE_DIR)/FixedSizeQueue.tcc
+HEADERS = $(LOCAL_INCLUDE_DIR)/Bobcat/SharedQueue.h \
+          $(LOCAL_INCLUDE_DIR)/Bobcat/SharedQueue.tcc \
+          $(LOCAL_INCLUDE_DIR)/Bobcat/LockFreeQueue.h \
+          $(LOCAL_INCLUDE_DIR)/Bobcat/LockFreeQueue.tcc \
+          $(LOCAL_INCLUDE_DIR)/Bobcat/FixedSizeQueue.h \
+          $(LOCAL_INCLUDE_DIR)/Bobcat/FixedSizeQueue.tcc
 
 LIB_NAME =
 TARGET_LIB =
@@ -62,7 +62,7 @@ PRE_BUILD:
 	mkdir -p $(LOCAL_BIN_DIR)
 	mkdir -p $(LOCAL_OBJ_DIR)
 	mkdir -p $(PROJECT_LIB_DIR)
-	mkdir -p $(PROJECT_INCLUDE_DIR)
+	mkdir -p $(PROJECT_INCLUDE_DIR)/Bobcat
 
 SHAREDQ_TESTER_OBJ = $(LOCAL_OBJ_DIR)/sharedq_tester.o
 $(LOCAL_BIN_DIR)/sharedq_tester: $(TARGET_LIB) $(SHAREDQ_TESTER_OBJ)

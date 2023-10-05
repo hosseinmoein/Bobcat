@@ -6,7 +6,7 @@
 #include <iostream>
 #include <thread>
 
-#include <SharedQueue.h>
+#include <Bobcat/SharedQueue.h>
 
 using namespace hmq;
 

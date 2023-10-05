@@ -30,12 +30,12 @@ add_library(${LIBRARY_TARGET_NAME} INTERFACE)
 add_definitions(-D DMS_INCLUDE_SOURCE) # Need this for some of the .tcc files to be compiled
 # List of header files.
 set(${LIBRARY_TARGET_NAME}_HDR
-   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/FixedSizeQueue.h>
-   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/FixedSizeQueue.tcc>
-   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/LockFreeQueue.h>
-   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/LockFreeQueue.tcc>
-   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/SharedQueue.h>
-   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/SharedQueue.tcc>
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/Bobcat/FixedSizeQueue.h>
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/Bobcat/FixedSizeQueue.tcc>
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/Bobcat/LockFreeQueue.h>
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/Bobcat/LockFreeQueue.tcc>
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/Bobcat/SharedQueue.h>
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/Bobcat/SharedQueue.tcc>
 )
 
 target_include_directories(${LIBRARY_TARGET_NAME} INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"

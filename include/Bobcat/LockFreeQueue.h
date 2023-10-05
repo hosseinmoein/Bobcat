@@ -110,7 +110,7 @@ private:
 // ----------------------------------------------------------------------------
 
 #  ifdef DMS_INCLUDE_SOURCE
-#    include <LockFreeQueue.tcc>
+#    include <Bobcat/LockFreeQueue.tcc>
 #  endif // DMS_INCLUDE_SOURCE
 
 // ----------------------------------------------------------------------------

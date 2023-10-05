@@ -6,7 +6,7 @@
 #include <iostream>
 #include <thread>
 
-#include <FixedSizeQueue.h>
+#include <Bobcat/FixedSizeQueue.h>
 
 using namespace hmq;
 
